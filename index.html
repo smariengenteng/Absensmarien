@@ -37,7 +37,7 @@
 // ==========================================
 // CONFIGURATION
 // ==========================================
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwF7eS3hITl_nY5-k7Hyj6GbYOk302Sh3WR3To7nTm-QBY2i92A7nhjjdX2SQn5ecxl/exec";
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzQjn_Xt77M-is20pO3y_yDx8He9GZjQfj1GhI1zdkfJOMTYghMi_2Cm19-F86Mmm9bRg/exec";
 
 // API Fetch Wrapper replacing google.script.run
 function fetchApi(action, data = {}) {
@@ -104,6 +104,8 @@ const google = {
             registerFace: function(data) { this.callApi('registerFace', data); },
             addEmployee: function(data) { this.callApi('addEmployee', data); },
             deleteEmployee: function(id) { this.callApi('deleteEmployee', {id: id}); },
+            deleteAttendance: function(id) { this.callApi('deleteAttendance', {id: id}); },
+            resetTodayAttendance: function(id) { this.callApi('resetTodayAttendance', {id: id}); },
             setupSpreadsheet: function() { this.callApi('setupSpreadsheet'); },
             updateSettings: function(data) { this.callApi('updateSettings', data); },
             getEmployeeByNIK: function(nik) { this.callApi('getEmployeeByNIK', {nik: nik}); },
@@ -238,12 +240,12 @@ statsHtml += '<div class="stat-card"><div class="stat-info"><h3>Sakit</h3><div c
 c.innerHTML=statsHtml + performanceHtml + '<div class="card" style="grid-column:1/-1"><div style="padding:16px 20px;display:flex;align-items:center;gap:8px"><i data-lucide="bar-chart-2" style="width:20px;color:var(--primary)"></i><strong>Statistik Kehadiran Bulanan</strong></div><div class="card-body"><canvas id="attChart" style="max-height:300px"></canvas></div></div>' + '<div class="feed-header"><div class="feed-title">Live Feed Kehadiran</div><button class="btn btn-primary" onclick="loadData()"><i data-lucide="refresh-cw" style="width:14px"></i> Refresh</button></div><div class="feed-grid">'+feed+'</div>';lucide.createIcons();renderChart(stats.monthly);}
 function renderChart(data){if(!data)return;var ctx=document.getElementById('attChart');new Chart(ctx,{type:'bar',data:{labels:data.labels,datasets:[{label:'Hadir',data:data.hadir,backgroundColor:'#10b981',borderRadius:4},{label:'Alfa (Tidak Hadir)',data:data.alfa,backgroundColor:'#ef4444',borderRadius:4}]},options:{responsive:true,plugins:{legend:{position:'top'}},scales:{y:{beginAtZero:true}}}});}
 var filterDate='';
-function renderLaporan(){var c=document.getElementById('main-content');c.innerHTML='<div class="page-header"><h1>Laporan Absensi</h1><div class="header-actions"><input type="date" class="form-input" style="width:auto" onchange="filterLaporan(this.value)" id="date-filter"><button class="btn btn-success" onclick="exportExcel()"><i data-lucide="file-spreadsheet" style="width:16px"></i> Excel</button><button class="btn btn-danger" style="background:var(--danger);color:white" onclick="exportPDF()"><i data-lucide="file-text" style="width:16px"></i> PDF</button></div></div><div class="card"><div class="card-body"><table class="table"><thead><tr><th>Nama</th><th>Unit Kerja</th><th>Tanggal</th><th>Masuk</th><th>Pulang</th><th>Status Masuk</th><th>Status Pulang</th><th>Keterangan</th></tr></thead><tbody id="lap-table"><tr><td colspan="8" style="text-align:center;padding:30px;color:var(--gray)">Loading data...</td></tr></tbody></table></div></div>';lucide.createIcons();renderLapTable();}
+function renderLaporan(){var c=document.getElementById('main-content');c.innerHTML='<div class="page-header"><h1>Laporan Absensi</h1><div class="header-actions"><input type="date" class="form-input" style="width:auto" onchange="filterLaporan(this.value)" id="date-filter"><button class="btn btn-success" onclick="exportExcel()"><i data-lucide="file-spreadsheet" style="width:16px"></i> Excel</button><button class="btn btn-danger" style="background:var(--danger);color:white" onclick="exportPDF()"><i data-lucide="file-text" style="width:16px"></i> PDF</button></div></div><div class="card"><div class="card-body"><table class="table"><thead><tr><th>Nama</th><th>Unit Kerja</th><th>Tanggal</th><th>Masuk</th><th>Pulang</th><th>Status Masuk</th><th>Status Pulang</th><th>Keterangan</th><th>Aksi</th></tr></thead><tbody id="lap-table"><tr><td colspan="9" style="text-align:center;padding:30px;color:var(--gray)">Loading data...</td></tr></tbody></table></div></div>';lucide.createIcons();renderLapTable();}
 function filterLaporan(d){filterDate=d;renderLapTable();}
 function renderLapTable(){var tb=document.getElementById('lap-table');if(!tb)return;
 var list=attendance.slice().reverse();
 if(filterDate){list=list.filter(function(a){return a.tanggal===filterDate;});}
-if(!list || list.length === 0){tb.innerHTML='<tr><td colspan="8" style="text-align:center;padding:30px;color:var(--gray)">Data Absensi Kosong / Tidak Ditemukan</td></tr>';return;}
+if(!list || list.length === 0){tb.innerHTML='<tr><td colspan="9" style="text-align:center;padding:30px;color:var(--gray)">Data Absensi Kosong / Tidak Ditemukan</td></tr>';return;}
 var h='';
 for(var i=0;i<list.length;i++){var a=list[i];
 var st;
@@ -253,7 +255,7 @@ else if(a.statusMasuk==='Terlambat') st='<span class="badge badge-warning">Terla
 else st='<span class="badge badge-success">Tepat Waktu</span>';
 var stP=a.statusPulang? (a.statusPulang.includes('Lembur')?'<span class="badge badge-info">'+a.statusPulang+'</span>':'<span class="badge badge-success">'+a.statusPulang+'</span>') : '-';
 var ket=a.keterangan?a.keterangan:'-';
-h+='<tr><td><div class="student-cell"><div class="avatar '+getColor(i)+'">'+getInit(a.nama)+'</div><span style="font-weight:500">'+a.nama+'</span></div></td><td>'+a.divisi+'</td><td>'+a.tanggal+'</td><td>'+(a.jamMasuk||'-')+'</td><td>'+(a.jamPulang||'-')+'</td><td>'+st+'</td><td>'+stP+'</td><td style="font-size:12px;color:var(--gray)">'+ket+'</td></tr>';}tb.innerHTML=h;lucide.createIcons();}
+h+='<tr><td><div class="student-cell"><div class="avatar '+getColor(i)+'">'+getInit(a.nama)+'</div><span style="font-weight:500">'+a.nama+'</span></div></td><td>'+a.divisi+'</td><td>'+a.tanggal+'</td><td>'+(a.jamMasuk||'-')+'</td><td>'+(a.jamPulang||'-')+'</td><td>'+st+'</td><td>'+stP+'</td><td style="font-size:12px;color:var(--gray)">'+ket+'</td><td><button class="action-btn" onclick="hapusAbsen(\''+a.id+'\')" title="Hapus"><i data-lucide="trash-2"></i></button></td></tr>';}tb.innerHTML=h;lucide.createIcons();}
 function exportExcel(){
 var list=attendance.slice().reverse(); if(filterDate) list=list.filter(function(a){return a.tanggal===filterDate;});
 if(list.length===0){alert('Tidak ada data untuk diexport');return;}
@@ -270,7 +272,7 @@ var data = list.map(function(a){ return [a.nama, a.divisi, a.tanggal, a.jamMasuk
 doc.autoTable({ head: headers, body: data, startY: 30, theme: 'grid', styles: { fontSize: 8 } });
 doc.save('Laporan_Absensi_'+(filterDate||'All')+'.pdf');}
 function renderKaryawan(){var c=document.getElementById('main-content');c.innerHTML='<div class="page-header"><h1>Data Guru &amp; Karyawan</h1><div class="header-actions"><button class="btn btn-primary" onclick="showAddModal()"><i data-lucide="plus" style="width:16px"></i> Tambah Guru/Karyawan</button><button class="btn btn-success" onclick="runSetup()"><i data-lucide="database" style="width:16px"></i> Setup Sheet</button></div></div><div class="card"><div class="card-body"><table class="table"><thead><tr><th>Nama</th><th>NIK</th><th>Unit Kerja</th><th>Foto Wajah</th><th>Aksi</th></tr></thead><tbody id="emp-table"></tbody></table></div></div>';lucide.createIcons();renderEmpTable();}
-function renderEmpTable(){var tb=document.getElementById('emp-table');if(!tb)return;if(employees.length===0){tb.innerHTML='<tr><td colspan="5" style="text-align:center;padding:30px;color:var(--gray)">Belum ada data guru/karyawan</td></tr>';return;}var h='';for(var i=0;i<employees.length;i++){var e=employees[i];var fb=e.hasFace?'<span class="badge badge-success">Terdaftar</span>':'<button class="btn btn-outline" onclick="regFace(\''+e.id+'\',\''+e.nama+'\')">Upload Foto</button>';h+='<tr><td><div class="student-cell"><div class="avatar '+getColor(i)+'">'+getInit(e.nama)+'</div><span style="font-weight:500">'+e.nama+'</span></div></td><td>'+e.nik+'</td><td>'+e.divisi+'</td><td>'+fb+'</td><td><div style="display:flex;gap:5px"><button class="action-btn" onclick="downloadIDCard(\''+e.id+'\')" title="Print ID Card"><i data-lucide="id-card"></i></button><button class="action-btn" onclick="deleteEmp(\''+e.id+'\')" title="Hapus"><i data-lucide="trash-2"></i></button></div></td></tr>';}tb.innerHTML=h;lucide.createIcons();}
+function renderEmpTable(){var tb=document.getElementById('emp-table');if(!tb)return;if(employees.length===0){tb.innerHTML='<tr><td colspan="5" style="text-align:center;padding:30px;color:var(--gray)">Belum ada data guru/karyawan</td></tr>';return;}var h='';for(var i=0;i<employees.length;i++){var e=employees[i];var fb=e.hasFace?'<span class="badge badge-success">Terdaftar</span>':'<button class="btn btn-outline" onclick="regFace(\''+e.id+'\',\''+e.nama+'\')">Upload Foto</button>';h+='<tr><td><div class="student-cell"><div class="avatar '+getColor(i)+'">'+getInit(e.nama)+'</div><span style="font-weight:500">'+e.nama+'</span></div></td><td>'+e.nik+'</td><td>'+e.divisi+'</td><td>'+fb+'</td><td><div style="display:flex;gap:5px"><button class="action-btn" onclick="resetAbsenHariIni(\''+e.id+'\',\''+e.nama+'\')" title="Reset Absen Hari Ini"><i data-lucide="rotate-ccw"></i></button><button class="action-btn" onclick="downloadIDCard(\''+e.id+'\')" title="Print ID Card"><i data-lucide="id-card"></i></button><button class="action-btn" onclick="deleteEmp(\''+e.id+'\')" title="Hapus"><i data-lucide="trash-2"></i></button></div></td></tr>';}tb.innerHTML=h;lucide.createIcons();}
 function gs(key,def){return (appSettings && appSettings[key]!==undefined && appSettings[key]!=='') ? appSettings[key] : def;}
 function renderPengaturan(){var c=document.getElementById('main-content');
 var h='<div class="page-header"><h1>Pengaturan</h1></div>';
@@ -313,7 +315,9 @@ var uploadedImg=null;function previewFoto(input){if(input.files&&input.files[0])
 function loadFaceApi(){Promise.all([faceapi.nets.tinyFaceDetector.loadFromUri('https://cdn.jsdelivr.net/npm/@vladmandic/face-api/model'),faceapi.nets.faceLandmark68Net.loadFromUri('https://cdn.jsdelivr.net/npm/@vladmandic/face-api/model'),faceapi.nets.faceRecognitionNet.loadFromUri('https://cdn.jsdelivr.net/npm/@vladmandic/face-api/model')]).then(function(){console.log('Face API Loaded');});}
 function saveFace(id){document.getElementById('face-status').style.display='block';document.getElementById('face-status').textContent='Memproses...';var cv=document.createElement('canvas');cv.width=uploadedImg.width;cv.height=uploadedImg.height;cv.getContext('2d').drawImage(uploadedImg,0,0);faceapi.detectSingleFace(cv,new faceapi.TinyFaceDetectorOptions()).withFaceLandmarks().withFaceDescriptor().then(function(d){if(d){var desc=Array.from(d.descriptor);var sm=document.createElement('canvas');sm.width=200;sm.height=200;sm.getContext('2d').drawImage(uploadedImg,0,0,200,200);var url=sm.toDataURL('image/jpeg',0.5);google.script.run.withSuccessHandler(function(r){closeModal();if(r.success){showToast('Berhasil','success');loadData();}else showToast('Gagal','error');}).registerFace({id:id,desc:desc,url:url});}else{document.getElementById('face-status').textContent='Wajah tidak terdeteksi';}});}
 function submitAdd(){var nik=document.getElementById('add-nik').value;var nm=document.getElementById('add-nama').value;var div=document.getElementById('add-divisi').value;if(!nik||!nm)return;google.script.run.withSuccessHandler(function(r){closeModal();loadData();}).addEmployee({nik:nik,nama:nm,divisi:div});}
-function deleteEmp(id){if(confirm('Hapus?')){google.script.run.withSuccessHandler(function(){loadData();}).deleteEmployee(id);}}function runSetup(){google.script.run.withSuccessHandler(function(r){showToast(r,'success');}).setupSpreadsheet();}
+function deleteEmp(id){if(confirm('Hapus?')){google.script.run.withSuccessHandler(function(){loadData();}).deleteEmployee(id);}}
+function hapusAbsen(id){if(!confirm('Hapus data absen ini? Tindakan ini tidak bisa dibatalkan.'))return;google.script.run.withSuccessHandler(function(r){if(r&&r.success){showToast('Data absen dihapus','success');loadData();}else{alert((r&&r.message)||'Gagal menghapus data');}}).withFailureHandler(function(e){alert('Conn Error: '+e);}).deleteAttendance(id);}
+function resetAbsenHariIni(id,nm){if(!confirm('Reset absen hari ini untuk '+nm+'? Data absen/izin/sakit hari ini milik pegawai ini akan dihapus dan bisa absen ulang dari awal.'))return;google.script.run.withSuccessHandler(function(r){if(r&&r.success){showToast('Absen hari ini direset','success');loadData();}else{alert((r&&r.message)||'Gagal mereset absen');}}).withFailureHandler(function(e){alert('Conn Error: '+e);}).resetTodayAttendance(id);}function runSetup(){google.script.run.withSuccessHandler(function(r){showToast(r,'success');}).setupSpreadsheet();}
 function saveSettings(){
 var payload={
   jamMasukMulai: document.getElementById('set-jm-mulai').value,
@@ -368,6 +372,8 @@ window.showAddModal = showAddModal;
 window.regFace = regFace;
 window.submitAdd = submitAdd;
 window.deleteEmp = deleteEmp;
+window.resetAbsenHariIni = resetAbsenHariIni;
+window.hapusAbsen = hapusAbsen;
 window.runSetup = runSetup;
 window.saveSettings = saveSettings;
 window.parseMapsLink = parseMapsLink;
@@ -382,7 +388,7 @@ window.showToast = showToast;
 // EMPLOYEE JS
 // ==========================================
 function initEmployee() {
-var currEmp=null;var vid=null;var loc={lat:'',lng:'',alamat:''};var faceLoaded=false;var clockInt=null;var lastStatus='belum_masuk';var empSettings={lokasiLat:'',lokasiLng:'',radiusMeter:'30'};var gpsOk=true;
+var currEmp=null;var vid=null;var loc={lat:'',lng:'',alamat:''};var faceLoaded=false;var clockInt=null;var lastStatus='belum_masuk';var empSettings={lokasiLat:'',lokasiLng:'',radiusMeter:'30'};var gpsOk=true;var faceMatchOk=false;var faceLoopInt=null;
 google.script.run.withSuccessHandler(function(r){if(r&&r.success)empSettings=r.data;}).getSettings();
 lucide.createIcons();showInput();
 function showInput(){stopClock();document.getElementById('app-container').innerHTML='<div class="input-screen"><div class="logo-box" style="margin-bottom:20px"><i data-lucide="hexagon" style="width:24px"></i></div><h1 class="welcome-text">Absensi Sekolah</h1><p class="welcome-sub">Masukkan NIK / ID Anda untuk mengakses absensi guru &amp; karyawan.</p><div class="form-group"><input type="text" class="form-input" id="nik-in" placeholder="NIK / ID Pegawai"></div><button class="btn-primary" onclick="checkEmp()">Mulai</button><div style="margin-top:30px;display:flex;flex-direction:column;gap:10px;text-align:center"><a href="?page=register" style="font-size:12px;color:var(--primary);text-decoration:none"><i data-lucide="user-plus" style="width:12px;vertical-align:middle"></i> Daftar Guru/Karyawan Baru</a><a href="?page=admin" style="font-size:12px;color:var(--text-muted);text-decoration:none"><i data-lucide="lock" style="width:12px;vertical-align:middle"></i> Masuk sebagai Admin</a></div></div>';lucide.createIcons();}
@@ -420,7 +426,7 @@ h_str += "<div class='app-header'><div class='app-logo'><div class='logo-box'><i
 h_str += "<div class='header-actions'><div class='icon-btn'><i data-lucide='bell' style='width:18px'></i></div><div class='icon-btn' onclick='showInput()'><i data-lucide='log-out' style='width:18px'></i></div></div></div>";
 h_str += "<div class='time-section'><div class='digital-clock' id='clock'>00:00</div><div class='date-text' id='date'>Loading...</div></div>";
 h_str += "<div class='scan-container'><div class='scan-circle'><video id='cam' class='camera-video' autoplay='autoplay' playsinline='playsinline'></video><div class='scan-overlay'></div><div class='scan-line'></div></div><div class='gps-badge' id='gps-badge'><i data-lucide='map-pin' style='width:12px'></i> GPS SEARCHING</div></div>";
-h_str += "<p class='scan-status'>Scanning... Keep your face within the frame</p><div class='location-card'><div class='loc-header'><span>Current Location</span><span style='color:var(--primary)' id='addr-header'>Locating...</span></div><div class='map-view' id='map-box'><div class='map-pin-anim'></div><div style='position:absolute;bottom:10px;left:10px;right:10px;background:rgba(0,0,0,0.6);padding:8px;border-radius:8px;font-size:10px' id='addr-text'>Detecting...</div></div></div>";
+h_str += "<p class='scan-status' id='face-match-status'>Memindai wajah...</p><div class='location-card'><div class='loc-header'><span>Current Location</span><span style='color:var(--primary)' id='addr-header'>Locating...</span></div><div class='map-view' id='map-box'><div class='map-pin-anim'></div><div style='position:absolute;bottom:10px;left:10px;right:10px;background:rgba(0,0,0,0.6);padding:8px;border-radius:8px;font-size:10px' id='addr-text'>Detecting...</div></div><div id='coord-text' style='margin-top:10px;font-size:11px;color:var(--text-muted);text-align:center'>Koordinat: mencari...</div></div>";
 h_str += "<div style='padding:0 20px 100px'><button id='act-btn' class='"+btnClass+"' disabled='disabled' onclick=\"doAbsen('"+status+"')\" style='display:flex;align-items:center;justify-content:center;gap:10px;width:100%'><i data-lucide='scan-face'></i> "+btnTxt+"</button>";
 if(status==='belum_masuk'){
 h_str += "<div style='display:flex;gap:10px;margin-top:10px'><button class='btn btn-outline' style='flex:1;display:flex;align-items:center;justify-content:center;gap:6px' onclick=\"showIzinForm('sakit')\"><i data-lucide='thermometer' style='width:16px'></i> Sakit</button><button class='btn btn-outline' style='flex:1;display:flex;align-items:center;justify-content:center;gap:6px' onclick=\"showIzinForm('izin')\"><i data-lucide='file-text' style='width:16px'></i> Izin</button></div>";
@@ -430,10 +436,48 @@ h_str += "<div class='bottom-nav'><div class='nav-icon active'><i data-lucide='h
 var h = "" + h_str + "";
 document.getElementById('app-container').innerHTML=h;lucide.createIcons();startClock();startCam();getLoc();}
 function startClock(){updateTime();clockInt=setInterval(updateTime,1000);}function stopClock(){if(clockInt)clearInterval(clockInt);}function updateTime(){var d=new Date();var opts={timeZone:'Asia/Jakarta',hour:'numeric',minute:'2-digit',hour12:true};var parts=new Intl.DateTimeFormat('en-US',opts).formatToParts(d);var h,m,am;parts.forEach(function(p){if(p.type==='hour')h=p.value;if(p.type==='minute')m=p.value;if(p.type==='dayPeriod')am=p.value;});document.getElementById('clock').innerHTML=h+':'+m+' <span style="font-size:16px;font-weight:400">'+am+'</span>';var dOpts={timeZone:'Asia/Jakarta',weekday:'long',year:'numeric',month:'long',day:'numeric'};document.getElementById('date').innerText=d.toLocaleDateString('en-US',dOpts);}
-function startCam(){navigator.mediaDevices.getUserMedia({video:{facingMode:'user'}}).then(function(s){vid=s;document.getElementById('cam').srcObject=s;loadFace();});}function loadFace(){Promise.all([faceapi.nets.tinyFaceDetector.loadFromUri('https://cdn.jsdelivr.net/npm/@vladmandic/face-api/model'),faceapi.nets.faceLandmark68Net.loadFromUri('https://cdn.jsdelivr.net/npm/@vladmandic/face-api/model'),faceapi.nets.faceRecognitionNet.loadFromUri('https://cdn.jsdelivr.net/npm/@vladmandic/face-api/model')]).then(function(){faceLoaded=true;document.getElementById('act-btn').disabled=false;});}
+function startCam(){navigator.mediaDevices.getUserMedia({video:{facingMode:'user'}}).then(function(s){vid=s;document.getElementById('cam').srcObject=s;loadFace();});}
+function loadFace(){Promise.all([faceapi.nets.tinyFaceDetector.loadFromUri('https://cdn.jsdelivr.net/npm/@vladmandic/face-api/model'),faceapi.nets.faceLandmark68Net.loadFromUri('https://cdn.jsdelivr.net/npm/@vladmandic/face-api/model'),faceapi.nets.faceRecognitionNet.loadFromUri('https://cdn.jsdelivr.net/npm/@vladmandic/face-api/model')]).then(function(){faceLoaded=true;startFaceLoop();updateActBtn();});}
+function updateActBtn(){var btn=document.getElementById('act-btn');if(!btn)return;btn.disabled=!(faceLoaded && faceMatchOk && gpsOk);}
+function startFaceLoop(){if(faceLoopInt)clearInterval(faceLoopInt);faceLoopInt=setInterval(checkFaceLive,900);checkFaceLive();}
+function checkFaceLive(){
+var v=document.getElementById('cam');
+if(!v||v.readyState<2)return;
+var cv=document.createElement('canvas');cv.width=v.videoWidth;cv.height=v.videoHeight;cv.getContext('2d').drawImage(v,0,0);
+faceapi.detectSingleFace(cv,new faceapi.TinyFaceDetectorOptions()).withFaceLandmarks().withFaceDescriptor().then(function(d){
+var statusEl=document.getElementById('face-match-status');
+if(!d){
+   faceMatchOk=false;
+   if(statusEl){statusEl.innerHTML='Wajah tidak terdeteksi. Posisikan wajah di dalam lingkaran.';statusEl.style.color='var(--text-muted)';}
+   updateActBtn();
+   return;
+}
+if(currEmp.desc && currEmp.desc.length>0){
+   var dist=faceapi.euclideanDistance(d.descriptor,currEmp.desc);
+   var sim=Math.max(0,(1-dist))*100;
+   if(statusEl){
+      if(sim>=70){
+         statusEl.innerHTML='<i data-lucide="check-circle" style="width:12px;vertical-align:middle"></i> Kemiripan Wajah: '+sim.toFixed(0)+'%';
+         statusEl.style.color='var(--success)';
+      }else{
+         statusEl.innerHTML='<i data-lucide="alert-triangle" style="width:12px;vertical-align:middle"></i> Kemiripan Wajah: '+sim.toFixed(0)+'% (Minimal 70%, absen tidak bisa dilakukan)';
+         statusEl.style.color='var(--danger)';
+      }
+      lucide.createIcons();
+   }
+   faceMatchOk = sim>=70;
+}else{
+   faceMatchOk=true;
+   if(statusEl){statusEl.innerHTML='<i data-lucide="user-plus" style="width:12px;vertical-align:middle"></i> Wajah akan didaftarkan sebagai referensi';statusEl.style.color='var(--primary)';lucide.createIcons();}
+}
+updateActBtn();
+}).catch(function(){});
+}
 function haversineM(lat1,lng1,lat2,lng2){var R=6371000;var toRad=function(v){return v*Math.PI/180;};var dLat=toRad(lat2-lat1);var dLng=toRad(lng2-lng1);var a=Math.sin(dLat/2)*Math.sin(dLat/2)+Math.cos(toRad(lat1))*Math.cos(toRad(lat2))*Math.sin(dLng/2)*Math.sin(dLng/2);var c=2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a));return R*c;}
 function getLoc(){if(navigator.geolocation){navigator.geolocation.getCurrentPosition(function(p){loc.lat=p.coords.latitude;loc.lng=p.coords.longitude;
 var badge=document.getElementById('gps-badge');
+var coordEl=document.getElementById('coord-text');
+if(coordEl) coordEl.innerText='Koordinat: '+loc.lat.toFixed(6)+', '+loc.lng.toFixed(6);
 if(empSettings.lokasiLat && empSettings.lokasiLng){
   var dist=haversineM(parseFloat(empSettings.lokasiLat),parseFloat(empSettings.lokasiLng),loc.lat,loc.lng);
   var radius=empSettings.radiusMeter?parseFloat(empSettings.radiusMeter):30;
@@ -442,6 +486,7 @@ if(empSettings.lokasiLat && empSettings.lokasiLng){
      badge.className='gps-badge';
      badge.style.background='rgba(239,68,68,0.15)';badge.style.color='#ef4444';
      badge.innerHTML='<i data-lucide="alert-triangle" style="width:12px"></i> DI LUAR RADIUS ('+Math.round(dist)+'m)';
+     if(coordEl) coordEl.innerHTML+='<br><span style="color:var(--danger)">Jarak '+Math.round(dist)+'m dari lokasi sekolah (maks. '+radius+'m). Absen tidak bisa dilakukan.</span>';
   }else{
      gpsOk=true;
      badge.className='gps-badge locked';
@@ -454,8 +499,9 @@ if(empSettings.lokasiLat && empSettings.lokasiLng){
   badge.innerHTML='<i data-lucide="check-circle" style="width:12px"></i> GPS LOCKED';
 }
 lucide.createIcons();
-fetch('https://nominatim.openstreetmap.org/reverse?format=json&lat='+p.coords.latitude+'&lon='+p.coords.longitude).then(function(r){return r.json();}).then(function(d){loc.alamat=d.display_name||'';document.getElementById('addr-text').innerText=loc.alamat;document.getElementById('addr-header').innerText=d.address.city||d.address.town||'Location Found';});},function(){document.getElementById('addr-text').innerText='GPS Error';});}}
-function stopCam(){if(vid){vid.getTracks().forEach(function(t){t.stop();});vid=null;}}
+updateActBtn();
+fetch('https://nominatim.openstreetmap.org/reverse?format=json&lat='+p.coords.latitude+'&lon='+p.coords.longitude).then(function(r){return r.json();}).then(function(d){loc.alamat=d.display_name||'';document.getElementById('addr-text').innerText=loc.alamat;document.getElementById('addr-header').innerText=d.address.city||d.address.town||'Location Found';});},function(){document.getElementById('addr-text').innerText='GPS Error';gpsOk=false;updateActBtn();});}}
+function stopCam(){if(vid){vid.getTracks().forEach(function(t){t.stop();});vid=null;}if(faceLoopInt){clearInterval(faceLoopInt);faceLoopInt=null;}}
 function showIzinForm(type){
 stopCam();stopClock();
 var isIzin=type==='izin';
