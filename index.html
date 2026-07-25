@@ -29,7 +29,7 @@
 </div>
 
 <div id="page-register" style="display:none;">
-<div class="mobile-app"><div style="padding:20px;display:flex;align-items:center;gap:10px;margin-bottom:10px"><i data-lucide="chevron-left" onclick="window.history.back()" style="cursor:pointer"></i><h2 style="font-size:18px;font-weight:700;color:var(--text)">Registrasi Guru/Karyawan</h2></div><div style="text-align:center;margin-bottom:30px;position:relative"><div style="width:120px;height:120px;background:#e2e8f0;border-radius:50%;margin:0 auto;overflow:hidden;border:4px solid #fff;box-shadow:0 4px 10px rgba(0,0,0,0.1);position:relative"><img id="preview-img" style="width:100%;height:100%;object-fit:cover;display:none"/><div id="placeholder-icon" style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:#94a3b8"><i data-lucide="user" style="width:60px;height:60px"></i></div></div><div onclick="document.getElementById('file-in').click()" style="position:absolute;bottom:0;left:50%;transform:translateX(30px);width:40px;height:40px;background:#10b981;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;border:3px solid #fff;cursor:pointer"><i data-lucide="camera" style="width:20px"></i></div><input type="file" id="file-in" hidden="hidden" accept="image/*" onchange="previewFile(this)"/></div><div style="text-align:center;margin-bottom:30px"><h3 style="font-size:18px;font-weight:700">Unggah Foto</h3><p style="color:#10b981;font-size:13px">Pilih foto profil terbaik Anda</p></div><div style="padding:0 20px"><div class="form-group"><label class="form-label">Nama Lengkap</label><div style="position:relative"><input type="text" class="form-input" id="reg-nama" placeholder="Contoh: Budi Santoso" style="padding-right:40px"/><i data-lucide="user" style="position:absolute;right:12px;top:12px;width:18px;color:#94a3b8"></i></div></div><div class="form-group"><label class="form-label">NIP / ID Pegawai</label><div style="position:relative"><input type="text" class="form-input" id="reg-nik" placeholder="Contoh: NIP atau ID Pegawai" style="padding-right:40px"/><div style="position:absolute;right:12px;top:12px;display:flex;align-items:center;justify-content:center;background:#94a3b8;color:white;font-size:10px;padding:2px 4px;border-radius:4px;height:18px">123</div></div></div><div style="background:#ecfdf5;border:1px solid #a7f3d0;padding:16px;border-radius:12px;display:flex;gap:12px;margin:30px 0 40px"><i data-lucide="info" style="min-width:20px;color:#10b981"></i><p style="font-size:12px;color:#065f46;line-height:1.5">Pastikan data yang Anda masukkan sudah sesuai dengan data kepegawaian sekolah untuk keperluan administrasi.</p></div><button class="btn btn-primary" id="save-btn" onclick="submitReg()" style="width:100%;height:50px;font-size:16px;background:#10b981;border:none;display:flex;align-items:center;justify-content:center;gap:10px">Simpan Data <i data-lucide="check-circle" style="width:20px"></i></button></div><div id="loading-overlay" style="position:fixed;inset:0;background:rgba(255,255,255,0.9);z-index:99;display:none;flex-direction:column;align-items:center;justify-content:center"><div class="loader"></div><p id="load-text" style="margin-top:20px;font-weight:600;color:#1e293b">Memproses...</p></div></div>
+<div class="mobile-app"><div style="padding:20px;display:flex;align-items:center;gap:10px;margin-bottom:10px"><i data-lucide="chevron-left" onclick="window.history.back()" style="cursor:pointer"></i><h2 style="font-size:18px;font-weight:700;color:var(--text)">Registrasi Guru/Karyawan</h2></div><div style="text-align:center;margin-bottom:30px;position:relative"><div style="width:120px;height:120px;background:#e2e8f0;border-radius:50%;margin:0 auto;overflow:hidden;border:4px solid #fff;box-shadow:0 4px 10px rgba(0,0,0,0.1);position:relative"><img id="preview-img" style="width:100%;height:100%;object-fit:cover;display:none"/><div id="placeholder-icon" style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:#94a3b8"><i data-lucide="user" style="width:60px;height:60px"></i></div></div><div onclick="document.getElementById('file-in').click()" style="position:absolute;bottom:0;left:50%;transform:translateX(30px);width:40px;height:40px;background:#10b981;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;border:3px solid #fff;cursor:pointer"><i data-lucide="camera" style="width:20px"></i></div><input type="file" id="file-in" hidden="hidden" accept="image/*" onchange="previewFile(this)"/></div><div style="text-align:center;margin-bottom:30px"><h3 style="font-size:18px;font-weight:700">Unggah Foto</h3><p style="color:#10b981;font-size:13px">Pilih foto profil terbaik Anda</p></div><div style="padding:0 20px"><div class="form-group"><label class="form-label">Nama Lengkap</label><div style="position:relative"><input type="text" class="form-input" id="reg-nama" placeholder="Contoh: Budi Santoso" style="padding-right:40px"/><i data-lucide="user" style="position:absolute;right:12px;top:12px;width:18px;color:#94a3b8"></i></div></div><div class="form-group"><label class="form-label">NIK / ID Pegawai</label><div style="position:relative"><input type="text" class="form-input" id="reg-nik" placeholder="Contoh: NIK atau ID Pegawai" style="padding-right:40px"/><div style="position:absolute;right:12px;top:12px;display:flex;align-items:center;justify-content:center;background:#94a3b8;color:white;font-size:10px;padding:2px 4px;border-radius:4px;height:18px">123</div></div></div><div style="background:#ecfdf5;border:1px solid #a7f3d0;padding:16px;border-radius:12px;display:flex;gap:12px;margin:30px 0 40px"><i data-lucide="info" style="min-width:20px;color:#10b981"></i><p style="font-size:12px;color:#065f46;line-height:1.5">Pastikan data yang Anda masukkan sudah sesuai dengan data kepegawaian sekolah untuk keperluan administrasi.</p></div><button class="btn btn-primary" id="save-btn" onclick="submitReg()" style="width:100%;height:50px;font-size:16px;background:#10b981;border:none;display:flex;align-items:center;justify-content:center;gap:10px">Simpan Data <i data-lucide="check-circle" style="width:20px"></i></button></div><div id="loading-overlay" style="position:fixed;inset:0;background:rgba(255,255,255,0.9);z-index:99;display:none;flex-direction:column;align-items:center;justify-content:center"><div class="loader"></div><p id="load-text" style="margin-top:20px;font-weight:600;color:#1e293b">Memproses...</p></div></div>
 </div>
 
 <script>
@@ -109,7 +109,9 @@ const google = {
             getEmployeeByNIK: function(nik) { this.callApi('getEmployeeByNIK', {nik: nik}); },
             submitAttendance: function(data) { this.callApi('submitAttendance', data); },
             submitIzinSakit: function(data) { this.callApi('submitIzinSakit', data); },
-            handleSelfRegister: function(data) { this.callApi('handleSelfRegister', data); }
+            handleSelfRegister: function(data) { this.callApi('handleSelfRegister', data); },
+            parseMapsLink: function(data) { this.callApi('parseMapsLink', data); },
+            verifyAdminPassword: function(data) { this.callApi('verifyAdminPassword', data); }
         }
     }
 };
@@ -126,8 +128,7 @@ function startApp() {
 const page = urlParams.get('page') || 'employee';
 
 if (page === 'admin') {
-    document.getElementById('page-admin').style.display = 'block';
-    initAdmin();
+    showAdminLogin();
 } else if (page === 'register') {
     document.getElementById('page-register').style.display = 'block';
     initRegister();
@@ -136,6 +137,51 @@ if (page === 'admin') {
     initEmployee();
 }
 }
+
+function showAdminLogin(){
+  var el = document.createElement('div');
+  el.id = 'admin-login-gate';
+  el.style.cssText = 'position:fixed;inset:0;background:#0f172a;display:flex;align-items:center;justify-content:center;z-index:9999;padding:20px;font-family:Poppins,sans-serif';
+  el.innerHTML = '<div style="width:100%;max-width:340px;background:#1e293b;padding:30px;border-radius:16px;text-align:center">'
+    + '<div style="width:56px;height:56px;background:rgba(59,130,246,0.15);border-radius:14px;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;color:#3b82f6"><i data-lucide="lock" style="width:26px"></i></div>'
+    + '<h2 style="color:#f8fafc;font-size:18px;font-weight:700;margin-bottom:6px">Login Admin</h2>'
+    + '<p style="color:#94a3b8;font-size:13px;margin-bottom:18px">Masukkan password untuk mengakses panel admin.</p>'
+    + '<input type="password" id="admin-pw-in" placeholder="Password" style="width:100%;padding:12px;border-radius:10px;border:1px solid #334155;background:rgba(255,255,255,0.05);color:#f8fafc;margin-bottom:12px;box-sizing:border-box;font-size:14px" onkeydown="if(event.key===\'Enter\')verifyAdminLogin()"/>'
+    + '<div id="admin-pw-err" style="color:#ef4444;font-size:12px;margin-bottom:10px;display:none">Password salah</div>'
+    + '<button class="btn-primary" style="width:100%" onclick="verifyAdminLogin()">Masuk</button>'
+    + '<a href="?page=employee" style="display:block;margin-top:14px;font-size:12px;color:#94a3b8;text-decoration:none">&larr; Kembali ke Halaman Absen</a>'
+    + '</div>';
+  document.body.appendChild(el);
+  if(typeof lucide !== 'undefined') lucide.createIcons();
+  var inp = document.getElementById('admin-pw-in');
+  if(inp) inp.focus();
+}
+
+function verifyAdminLogin(){
+  var inp = document.getElementById('admin-pw-in');
+  var pw = inp.value;
+  var errEl = document.getElementById('admin-pw-err');
+  errEl.style.display = 'none';
+  var btn = document.querySelector('#admin-login-gate button.btn-primary');
+  var bt = btn.innerText; btn.innerText = 'Memeriksa...'; btn.disabled = true;
+  google.script.run.withSuccessHandler(function(r){
+    btn.innerText = bt; btn.disabled = false;
+    if(r && r.success){
+      var gate = document.getElementById('admin-login-gate');
+      if(gate) gate.remove();
+      document.getElementById('page-admin').style.display = 'block';
+      initAdmin();
+    } else {
+      errEl.textContent = (r && r.message) || 'Password salah';
+      errEl.style.display = 'block';
+    }
+  }).withFailureHandler(function(e){
+    btn.innerText = bt; btn.disabled = false;
+    errEl.textContent = 'Conn Error: ' + e;
+    errEl.style.display = 'block';
+  }).verifyAdminPassword({password: pw});
+}
+window.verifyAdminLogin = verifyAdminLogin;
 
 var checkReady = setInterval(function() {
   if (typeof lucide !== 'undefined' && typeof faceapi !== 'undefined') {
@@ -148,7 +194,7 @@ var checkReady = setInterval(function() {
 // ADMIN JS
 // ==========================================
 function initAdmin() {
-var currentPage='dashboard';var employees=[];var attendance=[];var stats={};var appSettings={jamMasuk:'08:00',jamPulang:'17:00'};var filterDivisi='Semua';var colors=['blue','green','orange','purple','cyan'];
+var currentPage='dashboard';var employees=[];var attendance=[];var stats={};var appSettings={jamMasukMulai:'06:00',jamMasukSelesai:'07:00',lokasiLat:'',lokasiLng:'',radiusMeter:'30'};var filterDivisi='Semua';var colors=['blue','green','orange','purple','cyan'];var HARI_LIST=['Senin','Selasa','Rabu','Kamis','Jumat','Sabtu','Minggu'];
 lucide.createIcons();loadData();
 function loadData(){
 google.script.run.withSuccessHandler(function(r){if(r.success)stats=r.stats;renderPage();}).withFailureHandler(function(e){alert('Err Stats:'+e);}).getStats();
@@ -223,16 +269,80 @@ var headers = [['Nama', 'Unit', 'Tanggal', 'Masuk', 'Pulang', 'Sts Masuk', 'Sts 
 var data = list.map(function(a){ return [a.nama, a.divisi, a.tanggal, a.jamMasuk||'-', a.jamPulang||'-', a.statusMasuk, a.statusPulang||'-', a.keterangan||'-']; });
 doc.autoTable({ head: headers, body: data, startY: 30, theme: 'grid', styles: { fontSize: 8 } });
 doc.save('Laporan_Absensi_'+(filterDate||'All')+'.pdf');}
-function renderKaryawan(){var c=document.getElementById('main-content');c.innerHTML='<div class="page-header"><h1>Data Guru &amp; Karyawan</h1><div class="header-actions"><button class="btn btn-primary" onclick="showAddModal()"><i data-lucide="plus" style="width:16px"></i> Tambah Guru/Karyawan</button><button class="btn btn-success" onclick="runSetup()"><i data-lucide="database" style="width:16px"></i> Setup Sheet</button></div></div><div class="card"><div class="card-body"><table class="table"><thead><tr><th>Nama</th><th>NIP</th><th>Unit Kerja</th><th>Foto Wajah</th><th>Aksi</th></tr></thead><tbody id="emp-table"></tbody></table></div></div>';lucide.createIcons();renderEmpTable();}
+function renderKaryawan(){var c=document.getElementById('main-content');c.innerHTML='<div class="page-header"><h1>Data Guru &amp; Karyawan</h1><div class="header-actions"><button class="btn btn-primary" onclick="showAddModal()"><i data-lucide="plus" style="width:16px"></i> Tambah Guru/Karyawan</button><button class="btn btn-success" onclick="runSetup()"><i data-lucide="database" style="width:16px"></i> Setup Sheet</button></div></div><div class="card"><div class="card-body"><table class="table"><thead><tr><th>Nama</th><th>NIK</th><th>Unit Kerja</th><th>Foto Wajah</th><th>Aksi</th></tr></thead><tbody id="emp-table"></tbody></table></div></div>';lucide.createIcons();renderEmpTable();}
 function renderEmpTable(){var tb=document.getElementById('emp-table');if(!tb)return;if(employees.length===0){tb.innerHTML='<tr><td colspan="5" style="text-align:center;padding:30px;color:var(--gray)">Belum ada data guru/karyawan</td></tr>';return;}var h='';for(var i=0;i<employees.length;i++){var e=employees[i];var fb=e.hasFace?'<span class="badge badge-success">Terdaftar</span>':'<button class="btn btn-outline" onclick="regFace(\''+e.id+'\',\''+e.nama+'\')">Upload Foto</button>';h+='<tr><td><div class="student-cell"><div class="avatar '+getColor(i)+'">'+getInit(e.nama)+'</div><span style="font-weight:500">'+e.nama+'</span></div></td><td>'+e.nik+'</td><td>'+e.divisi+'</td><td>'+fb+'</td><td><div style="display:flex;gap:5px"><button class="action-btn" onclick="downloadIDCard(\''+e.id+'\')" title="Print ID Card"><i data-lucide="id-card"></i></button><button class="action-btn" onclick="deleteEmp(\''+e.id+'\')" title="Hapus"><i data-lucide="trash-2"></i></button></div></td></tr>';}tb.innerHTML=h;lucide.createIcons();}
-function renderPengaturan(){var c=document.getElementById('main-content');c.innerHTML='<div class="page-header"><h1>Pengaturan</h1></div><div class="card"><div class="card-body"><div class="form-group"><label class="form-label">Jam Masuk (Batas Terlambat)</label><input type="time" class="form-input" id="set-jam-masuk" value="'+appSettings.jamMasuk+'"></div><div class="form-group"><label class="form-label">Jam Pulang (Batas Lembur)</label><input type="time" class="form-input" id="set-jam-pulang" value="'+appSettings.jamPulang+'"></div><button class="btn btn-primary" onclick="saveSettings()">Simpan Perubahan</button></div></div>';}
-function showAddModal(){var m=document.getElementById('modal');m.innerHTML='<div class="modal"><div class="modal-header"><span class="modal-title">Tambah Guru/Karyawan</span><button class="modal-close" onclick="closeModal()">&times;</button></div><div class="modal-body"><div class="form-group"><label class="form-label">NIP / ID</label><input type="text" class="form-input" id="add-nik"></div><div class="form-group"><label class="form-label">Nama Lengkap</label><input type="text" class="form-input" id="add-nama"></div><div class="form-group"><label class="form-label">Unit Kerja / Jabatan (cth: Guru Matematika, Tata Usaha)</label><input type="text" class="form-input" id="add-divisi"></div><button class="btn btn-primary" style="width:100%" onclick="submitAdd()">Simpan</button></div></div>';m.classList.add('active');}
+function gs(key,def){return (appSettings && appSettings[key]!==undefined && appSettings[key]!=='') ? appSettings[key] : def;}
+function renderPengaturan(){var c=document.getElementById('main-content');
+var h='<div class="page-header"><h1>Pengaturan</h1></div>';
+
+h+='<div class="card"><div class="card-body">';
+h+='<h3 style="margin-bottom:6px">Jam Absen Masuk</h3>';
+h+='<p style="font-size:12px;color:var(--gray);margin-bottom:14px">Sebelum jam mulai, absen masuk belum bisa dilakukan. Setelah jam selesai, absen masuk tetap bisa namun tercatat "Terlambat".</p>';
+h+='<div style="display:flex;gap:10px"><div class="form-group" style="flex:1"><label class="form-label">Mulai</label><input type="time" class="form-input" id="set-jm-mulai" value="'+gs('jamMasukMulai','06:00')+'"></div><div class="form-group" style="flex:1"><label class="form-label">Selesai (batas tepat waktu)</label><input type="time" class="form-input" id="set-jm-selesai" value="'+gs('jamMasukSelesai','07:00')+'"></div></div>';
+h+='</div></div>';
+
+h+='<div class="card"><div class="card-body">';
+h+='<h3 style="margin-bottom:6px">Jam Absen Pulang (per hari)</h3>';
+h+='<p style="font-size:12px;color:var(--gray);margin-bottom:14px">Sebelum jam mulai tercatat "Pulang Cepat". Setelah jam selesai, absen pulang tidak bisa dilakukan lagi.</p>';
+h+='<table style="width:100%;border-collapse:collapse"><thead><tr><th style="text-align:left;padding:6px;font-size:12px;color:var(--gray)">Hari</th><th style="text-align:left;padding:6px;font-size:12px;color:var(--gray)">Mulai</th><th style="text-align:left;padding:6px;font-size:12px;color:var(--gray)">Selesai</th></tr></thead><tbody>';
+HARI_LIST.forEach(function(hr){
+h+='<tr><td style="padding:6px;font-weight:500">'+hr+'</td><td style="padding:6px"><input type="time" class="form-input" id="set-jp-mulai-'+hr+'" value="'+gs('jamPulangMulai_'+hr,'14:00')+'"></td><td style="padding:6px"><input type="time" class="form-input" id="set-jp-selesai-'+hr+'" value="'+gs('jamPulangSelesai_'+hr,'15:00')+'"></td></tr>';
+});
+h+='</tbody></table></div></div>';
+
+h+='<div class="card"><div class="card-body">';
+h+='<h3 style="margin-bottom:6px">Lokasi &amp; Radius Absen</h3>';
+h+='<p style="font-size:12px;color:var(--gray);margin-bottom:14px">Tempel link Google Maps lokasi sekolah, lalu klik "Ambil Koordinat" agar titik lokasi otomatis terisi.</p>';
+h+='<div class="form-group"><label class="form-label">Link Google Maps</label><input type="text" class="form-input" id="set-maps-link" placeholder="https://maps.google.com/... atau https://maps.app.goo.gl/..."></div>';
+h+='<button type="button" class="btn btn-outline" onclick="parseMapsLink()" style="margin-bottom:14px"><i data-lucide="map-pin" style="width:14px"></i> Ambil Koordinat dari Link</button>';
+h+='<div style="display:flex;gap:10px"><div class="form-group" style="flex:1"><label class="form-label">Latitude</label><input type="text" class="form-input" id="set-lat" value="'+gs('lokasiLat','')+'"></div><div class="form-group" style="flex:1"><label class="form-label">Longitude</label><input type="text" class="form-input" id="set-lng" value="'+gs('lokasiLng','')+'"></div></div>';
+h+='<div class="form-group"><label class="form-label">Radius Maksimal (meter)</label><input type="number" class="form-input" id="set-radius" value="'+gs('radiusMeter','30')+'"></div>';
+h+='</div></div>';
+
+h+='<div class="card"><div class="card-body">';
+h+='<h3 style="margin-bottom:6px">Keamanan</h3>';
+h+='<div class="form-group"><label class="form-label">Ubah Password Admin (kosongkan jika tidak ingin diubah)</label><input type="password" class="form-input" id="set-admin-pw" placeholder="Password baru"></div>';
+h+='</div></div>';
+
+h+='<button class="btn btn-primary" style="width:100%" onclick="saveSettings()">Simpan Semua Perubahan</button>';
+
+c.innerHTML=h;lucide.createIcons();}
+function showAddModal(){var m=document.getElementById('modal');m.innerHTML='<div class="modal"><div class="modal-header"><span class="modal-title">Tambah Guru/Karyawan</span><button class="modal-close" onclick="closeModal()">&times;</button></div><div class="modal-body"><div class="form-group"><label class="form-label">NIK / ID</label><input type="text" class="form-input" id="add-nik"></div><div class="form-group"><label class="form-label">Nama Lengkap</label><input type="text" class="form-input" id="add-nama"></div><div class="form-group"><label class="form-label">Unit Kerja / Jabatan (cth: Guru Matematika, Tata Usaha)</label><input type="text" class="form-input" id="add-divisi"></div><button class="btn btn-primary" style="width:100%" onclick="submitAdd()">Simpan</button></div></div>';m.classList.add('active');}
 function regFace(id,nm){var m=document.getElementById('modal');m.innerHTML='<div class="modal"><div class="modal-header"><span class="modal-title">Foto Wajah - '+nm+'</span><button class="modal-close" onclick="closeModal()">&times;</button></div><div class="modal-body"><div style="padding:20px;text-align:center;border:2px dashed var(--border);cursor:pointer" onclick="document.getElementById(\'f-in\').click()"><input type="file" id="f-in" hidden="hidden" accept="image/*" onchange="previewFoto(this)"><p>Klik Upload Foto</p></div><div id="preview-box" style="display:none;margin-top:10px"><img id="preview-img" style="width:100%;max-height:200px"></div><button id="save-btn" disabled="disabled" class="btn btn-primary" style="width:100%;margin-top:10px" onclick="saveFace(\''+id+'\')">Simpan Wajah</button><div id="face-status" style="display:none;margin-top:5px"></div></div></div>';m.classList.add('active');loadFaceApi();}
 var uploadedImg=null;function previewFoto(input){if(input.files&&input.files[0]){var reader=new FileReader();reader.onload=function(e){uploadedImg=new Image();uploadedImg.onload=function(){document.getElementById('preview-box').style.display='block';document.getElementById('preview-img').src=e.target.result;document.getElementById('save-btn').disabled=false;};uploadedImg.src=e.target.result;};reader.readAsDataURL(input.files[0]);}}
 function loadFaceApi(){Promise.all([faceapi.nets.tinyFaceDetector.loadFromUri('https://cdn.jsdelivr.net/npm/@vladmandic/face-api/model'),faceapi.nets.faceLandmark68Net.loadFromUri('https://cdn.jsdelivr.net/npm/@vladmandic/face-api/model'),faceapi.nets.faceRecognitionNet.loadFromUri('https://cdn.jsdelivr.net/npm/@vladmandic/face-api/model')]).then(function(){console.log('Face API Loaded');});}
 function saveFace(id){document.getElementById('face-status').style.display='block';document.getElementById('face-status').textContent='Memproses...';var cv=document.createElement('canvas');cv.width=uploadedImg.width;cv.height=uploadedImg.height;cv.getContext('2d').drawImage(uploadedImg,0,0);faceapi.detectSingleFace(cv,new faceapi.TinyFaceDetectorOptions()).withFaceLandmarks().withFaceDescriptor().then(function(d){if(d){var desc=Array.from(d.descriptor);var sm=document.createElement('canvas');sm.width=200;sm.height=200;sm.getContext('2d').drawImage(uploadedImg,0,0,200,200);var url=sm.toDataURL('image/jpeg',0.5);google.script.run.withSuccessHandler(function(r){closeModal();if(r.success){showToast('Berhasil','success');loadData();}else showToast('Gagal','error');}).registerFace({id:id,desc:desc,url:url});}else{document.getElementById('face-status').textContent='Wajah tidak terdeteksi';}});}
 function submitAdd(){var nik=document.getElementById('add-nik').value;var nm=document.getElementById('add-nama').value;var div=document.getElementById('add-divisi').value;if(!nik||!nm)return;google.script.run.withSuccessHandler(function(r){closeModal();loadData();}).addEmployee({nik:nik,nama:nm,divisi:div});}
-function deleteEmp(id){if(confirm('Hapus?')){google.script.run.withSuccessHandler(function(){loadData();}).deleteEmployee(id);}}function runSetup(){google.script.run.withSuccessHandler(function(r){showToast(r,'success');}).setupSpreadsheet();}function saveSettings(){var jm=document.getElementById('set-jam-masuk').value;var jp=document.getElementById('set-jam-pulang').value;google.script.run.withSuccessHandler(function(){showToast('Tersimpan','success');loadData();}).updateSettings({jamMasuk:jm, jamPulang:jp});}
+function deleteEmp(id){if(confirm('Hapus?')){google.script.run.withSuccessHandler(function(){loadData();}).deleteEmployee(id);}}function runSetup(){google.script.run.withSuccessHandler(function(r){showToast(r,'success');}).setupSpreadsheet();}
+function saveSettings(){
+var payload={
+  jamMasukMulai: document.getElementById('set-jm-mulai').value,
+  jamMasukSelesai: document.getElementById('set-jm-selesai').value,
+  lokasiLat: document.getElementById('set-lat').value,
+  lokasiLng: document.getElementById('set-lng').value,
+  radiusMeter: document.getElementById('set-radius').value
+};
+HARI_LIST.forEach(function(hr){
+  payload['jamPulangMulai_'+hr]=document.getElementById('set-jp-mulai-'+hr).value;
+  payload['jamPulangSelesai_'+hr]=document.getElementById('set-jp-selesai-'+hr).value;
+});
+var pw=document.getElementById('set-admin-pw').value;
+if(pw) payload.adminPassword=pw;
+google.script.run.withSuccessHandler(function(){showToast('Tersimpan','success');loadData();}).updateSettings(payload);
+}
+function parseMapsLink(){
+var link=document.getElementById('set-maps-link').value;
+if(!link){alert('Masukkan link Google Maps terlebih dahulu');return;}
+google.script.run.withSuccessHandler(function(r){
+if(r&&r.success){
+   document.getElementById('set-lat').value=r.lat;
+   document.getElementById('set-lng').value=r.lng;
+   showToast('Koordinat ditemukan','success');
+}else{
+   alert((r&&r.message)||'Gagal mengambil koordinat dari link tersebut');
+}
+}).withFailureHandler(function(e){alert('Conn Error: '+e);}).parseMapsLink({link:link});
+}
 function closeModal(){document.getElementById('modal').classList.remove('active');}function showToast(m,t){var c=document.getElementById('toasts');var d=document.createElement('div');d.className='toast '+(t==='error'?'error':'');d.textContent=m;c.appendChild(d);setTimeout(function(){d.remove();},3000);}
 function downloadIDCard(id){var e=employees.find(function(x){return x.id===id;});if(!e){alert('Data not found');return;}
 var div=document.createElement('div');div.id='qr-temp';div.style.display='none';document.body.appendChild(div);
@@ -260,6 +370,7 @@ window.submitAdd = submitAdd;
 window.deleteEmp = deleteEmp;
 window.runSetup = runSetup;
 window.saveSettings = saveSettings;
+window.parseMapsLink = parseMapsLink;
 window.closeModal = closeModal;
 window.saveFace = saveFace;
 window.previewFoto = previewFoto;
@@ -271,9 +382,10 @@ window.showToast = showToast;
 // EMPLOYEE JS
 // ==========================================
 function initEmployee() {
-var currEmp=null;var vid=null;var loc={lat:'',lng:'',alamat:''};var faceLoaded=false;var clockInt=null;var lastStatus='belum_masuk';
+var currEmp=null;var vid=null;var loc={lat:'',lng:'',alamat:''};var faceLoaded=false;var clockInt=null;var lastStatus='belum_masuk';var empSettings={lokasiLat:'',lokasiLng:'',radiusMeter:'30'};var gpsOk=true;
+google.script.run.withSuccessHandler(function(r){if(r&&r.success)empSettings=r.data;}).getSettings();
 lucide.createIcons();showInput();
-function showInput(){stopClock();document.getElementById('app-container').innerHTML='<div class="input-screen"><div class="logo-box" style="margin-bottom:20px"><i data-lucide="hexagon" style="width:24px"></i></div><h1 class="welcome-text">Absensi Sekolah</h1><p class="welcome-sub">Masukkan NIP / ID Anda untuk mengakses absensi guru &amp; karyawan.</p><div class="form-group"><input type="text" class="form-input" id="nik-in" placeholder="NIP / ID Pegawai"></div><button class="btn-primary" onclick="checkEmp()">Mulai</button><div style="margin-top:30px;display:flex;flex-direction:column;gap:10px;text-align:center"><a href="?page=register" style="font-size:12px;color:var(--primary);text-decoration:none"><i data-lucide="user-plus" style="width:12px;vertical-align:middle"></i> Daftar Guru/Karyawan Baru</a><a href="?page=admin" style="font-size:12px;color:var(--text-muted);text-decoration:none"><i data-lucide="lock" style="width:12px;vertical-align:middle"></i> Masuk sebagai Admin</a></div></div>';lucide.createIcons();}
+function showInput(){stopClock();document.getElementById('app-container').innerHTML='<div class="input-screen"><div class="logo-box" style="margin-bottom:20px"><i data-lucide="hexagon" style="width:24px"></i></div><h1 class="welcome-text">Absensi Sekolah</h1><p class="welcome-sub">Masukkan NIK / ID Anda untuk mengakses absensi guru &amp; karyawan.</p><div class="form-group"><input type="text" class="form-input" id="nik-in" placeholder="NIK / ID Pegawai"></div><button class="btn-primary" onclick="checkEmp()">Mulai</button><div style="margin-top:30px;display:flex;flex-direction:column;gap:10px;text-align:center"><a href="?page=register" style="font-size:12px;color:var(--primary);text-decoration:none"><i data-lucide="user-plus" style="width:12px;vertical-align:middle"></i> Daftar Guru/Karyawan Baru</a><a href="?page=admin" style="font-size:12px;color:var(--text-muted);text-decoration:none"><i data-lucide="lock" style="width:12px;vertical-align:middle"></i> Masuk sebagai Admin</a></div></div>';lucide.createIcons();}
 function checkEmp(){
 var btn = document.querySelector('button.btn-primary');
 var inp = document.getElementById('nik-in');
@@ -319,7 +431,30 @@ var h = "" + h_str + "";
 document.getElementById('app-container').innerHTML=h;lucide.createIcons();startClock();startCam();getLoc();}
 function startClock(){updateTime();clockInt=setInterval(updateTime,1000);}function stopClock(){if(clockInt)clearInterval(clockInt);}function updateTime(){var d=new Date();var opts={timeZone:'Asia/Jakarta',hour:'numeric',minute:'2-digit',hour12:true};var parts=new Intl.DateTimeFormat('en-US',opts).formatToParts(d);var h,m,am;parts.forEach(function(p){if(p.type==='hour')h=p.value;if(p.type==='minute')m=p.value;if(p.type==='dayPeriod')am=p.value;});document.getElementById('clock').innerHTML=h+':'+m+' <span style="font-size:16px;font-weight:400">'+am+'</span>';var dOpts={timeZone:'Asia/Jakarta',weekday:'long',year:'numeric',month:'long',day:'numeric'};document.getElementById('date').innerText=d.toLocaleDateString('en-US',dOpts);}
 function startCam(){navigator.mediaDevices.getUserMedia({video:{facingMode:'user'}}).then(function(s){vid=s;document.getElementById('cam').srcObject=s;loadFace();});}function loadFace(){Promise.all([faceapi.nets.tinyFaceDetector.loadFromUri('https://cdn.jsdelivr.net/npm/@vladmandic/face-api/model'),faceapi.nets.faceLandmark68Net.loadFromUri('https://cdn.jsdelivr.net/npm/@vladmandic/face-api/model'),faceapi.nets.faceRecognitionNet.loadFromUri('https://cdn.jsdelivr.net/npm/@vladmandic/face-api/model')]).then(function(){faceLoaded=true;document.getElementById('act-btn').disabled=false;});}
-function getLoc(){if(navigator.geolocation){navigator.geolocation.getCurrentPosition(function(p){loc.lat=p.coords.latitude;loc.lng=p.coords.longitude;document.getElementById('gps-badge').className='gps-badge locked';document.getElementById('gps-badge').innerHTML='<i data-lucide="check-circle" style="width:12px"></i> GPS LOCKED';fetch('https://nominatim.openstreetmap.org/reverse?format=json&lat='+p.coords.latitude+'&lon='+p.coords.longitude).then(function(r){return r.json();}).then(function(d){loc.alamat=d.display_name||'';document.getElementById('addr-text').innerText=loc.alamat;document.getElementById('addr-header').innerText=d.address.city||d.address.town||'Location Found';});},function(){document.getElementById('addr-text').innerText='GPS Error';});}}
+function haversineM(lat1,lng1,lat2,lng2){var R=6371000;var toRad=function(v){return v*Math.PI/180;};var dLat=toRad(lat2-lat1);var dLng=toRad(lng2-lng1);var a=Math.sin(dLat/2)*Math.sin(dLat/2)+Math.cos(toRad(lat1))*Math.cos(toRad(lat2))*Math.sin(dLng/2)*Math.sin(dLng/2);var c=2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a));return R*c;}
+function getLoc(){if(navigator.geolocation){navigator.geolocation.getCurrentPosition(function(p){loc.lat=p.coords.latitude;loc.lng=p.coords.longitude;
+var badge=document.getElementById('gps-badge');
+if(empSettings.lokasiLat && empSettings.lokasiLng){
+  var dist=haversineM(parseFloat(empSettings.lokasiLat),parseFloat(empSettings.lokasiLng),loc.lat,loc.lng);
+  var radius=empSettings.radiusMeter?parseFloat(empSettings.radiusMeter):30;
+  if(dist>radius){
+     gpsOk=false;
+     badge.className='gps-badge';
+     badge.style.background='rgba(239,68,68,0.15)';badge.style.color='#ef4444';
+     badge.innerHTML='<i data-lucide="alert-triangle" style="width:12px"></i> DI LUAR RADIUS ('+Math.round(dist)+'m)';
+  }else{
+     gpsOk=true;
+     badge.className='gps-badge locked';
+     badge.style.background='';badge.style.color='';
+     badge.innerHTML='<i data-lucide="check-circle" style="width:12px"></i> GPS LOCKED';
+  }
+}else{
+  gpsOk=true;
+  badge.className='gps-badge locked';
+  badge.innerHTML='<i data-lucide="check-circle" style="width:12px"></i> GPS LOCKED';
+}
+lucide.createIcons();
+fetch('https://nominatim.openstreetmap.org/reverse?format=json&lat='+p.coords.latitude+'&lon='+p.coords.longitude).then(function(r){return r.json();}).then(function(d){loc.alamat=d.display_name||'';document.getElementById('addr-text').innerText=loc.alamat;document.getElementById('addr-header').innerText=d.address.city||d.address.town||'Location Found';});},function(){document.getElementById('addr-text').innerText='GPS Error';});}}
 function stopCam(){if(vid){vid.getTracks().forEach(function(t){t.stop();});vid=null;}}
 function showIzinForm(type){
 stopCam();stopClock();
@@ -359,7 +494,32 @@ else{ alert((r&&r.message)||'Gagal mengirim'); btn.innerText=t; btn.disabled=fal
 function showSuccessIzin(type){
 document.getElementById('app-container').innerHTML='<div class="input-screen" style="text-align:center"><div style="width:80px;height:80px;background:rgba(59,130,246,0.2);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;color:var(--primary)"><i data-lucide="check" style="width:40px;height:40px"></i></div><h2 style="font-size:24px;font-weight:700;margin-bottom:10px">Berhasil Dikirim</h2><p style="color:var(--text-muted)">'+(type==='izin'?'Pengajuan izin':'Laporan sakit')+' Anda telah tercatat.</p><button class="btn-primary" style="margin-top:30px" onclick="showInput()">Kembali ke Beranda</button></div>';lucide.createIcons();
 }
-function doAbsen(type){var v=document.getElementById('cam');var cv=document.createElement('canvas');cv.width=v.videoWidth;cv.height=v.videoHeight;cv.getContext('2d').drawImage(v,0,0);document.getElementById('act-btn').innerText='Verifying...';document.getElementById('act-btn').disabled=true;faceapi.detectSingleFace(cv,new faceapi.TinyFaceDetectorOptions()).withFaceLandmarks().withFaceDescriptor().then(function(d){if(!d){alert('Face not detected');document.getElementById('act-btn').disabled=false;return;}var desc=d.descriptor;if(currEmp.desc){var dist=faceapi.euclideanDistance(desc,currEmp.desc);if(dist>0.5){alert('Face mismatch!');document.getElementById('act-btn').disabled=false;return;}}else{alert('Face not registered!');document.getElementById('act-btn').disabled=false;return;}var url=cv.toDataURL('image/jpeg',0.5);google.script.run.withSuccessHandler(function(r){showSuccess(type);}).submitAttendance({id:currEmp.id,type:type,foto:url,lat:loc.lat,lng:loc.lng,alamat:loc.alamat});});}
+function doAbsen(type){
+var btn=document.getElementById('act-btn');var bt=btn.innerText;
+if(!gpsOk){alert('Lokasi Anda berada di luar radius absen yang diizinkan. Mendekatlah ke lokasi sekolah lalu coba lagi.');return;}
+var v=document.getElementById('cam');var cv=document.createElement('canvas');cv.width=v.videoWidth;cv.height=v.videoHeight;cv.getContext('2d').drawImage(v,0,0);
+btn.innerText='Verifying...';btn.disabled=true;
+faceapi.detectSingleFace(cv,new faceapi.TinyFaceDetectorOptions()).withFaceLandmarks().withFaceDescriptor().then(function(d){
+if(!d){alert('Wajah tidak terdeteksi. Pastikan wajah terlihat jelas di kamera.');btn.innerText=bt;btn.disabled=false;return;}
+var desc=d.descriptor;
+var isFirstReg=false;
+var descArr=Array.from(desc);
+if(currEmp.desc && currEmp.desc.length>0){
+   var dist=faceapi.euclideanDistance(desc,currEmp.desc);
+   var similarity=Math.max(0,(1-dist))*100;
+   if(similarity<70){
+      alert('Wajah tidak dikenali (kemiripan hanya '+similarity.toFixed(0)+'%). Absen tidak dapat dilakukan.');
+      btn.innerText=bt;btn.disabled=false;return;
+   }
+}else{
+   isFirstReg=true;
+}
+var url=cv.toDataURL('image/jpeg',0.5);
+google.script.run.withSuccessHandler(function(r){
+if(r&&r.success){showSuccess(type);}
+else{alert((r&&r.message)||'Gagal melakukan absen');btn.innerText=bt;btn.disabled=false;}
+}).withFailureHandler(function(e){alert('Conn Error: '+e);btn.innerText=bt;btn.disabled=false;}).submitAttendance({id:currEmp.id,type:type,foto:url,lat:loc.lat,lng:loc.lng,alamat:loc.alamat,desc:isFirstReg?descArr:null,firstReg:isFirstReg});
+});}
 function showSuccess(type){document.getElementById('app-container').innerHTML='<div class="input-screen" style="text-align:center"><div style="width:80px;height:80px;background:rgba(16,185,129,0.2);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;color:var(--success)"><i data-lucide="check" style="width:40px;height:40px"></i></div><h2 style="font-size:24px;font-weight:700;margin-bottom:10px">Access Granted</h2><p style="color:var(--text-muted)">Attendance recorded successfully.</p><button class="btn-primary" style="margin-top:30px" onclick="showInput()">Back to Home</button></div>';lucide.createIcons();stopClock();stopCam();}
 
 window.showInput = showInput;
